@@ -1,6 +1,9 @@
 <html>
     <head>
         <link rel="stylesheet" href="styles.css">
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
     </head>
     <body>
 
@@ -14,6 +17,26 @@
 
         </div>
 
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyA517oUVTLRM_xaojdkdpA8TCYMJiaKaT4",
+                authDomain: "fir-tutorial-dbee6.firebaseapp.com",
+                databaseURL: "https://fir-tutorial-dbee6.firebaseio.com",
+                projectId: "fir-tutorial-dbee6",
+                storageBucket: "fir-tutorial-dbee6.appspot.com",
+                messagingSenderId: "54163721478",
+                appId: "1:54163721478:web:f08e0d7062f2eb1a97e287"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore()
+  db.settings({ timeStampsInSnapshots: true });
+</script>
         <script src="app.js"></script>
     </body>
 </html>
