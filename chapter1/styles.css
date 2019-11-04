@@ -97,6 +97,6 @@ button{
     box-shadow: -1px 0px 1px rgba(0,0,0,0.1);
     font-weight: bold;
     font-family: ubuntu;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     color: #999;
 }
