@@ -8,16 +8,26 @@ function renderCafe(doc) {
     let li = document.createElement('li');
     let name = document.createElement('span');
     let city = document.createElement('span');
+    let cross = document.createElement('div');
 
   li.setAttribute('data-id', doc.id);
     name.textContent = doc.data().name;
     city.textContent = doc.data().city;
+    cross.textContent = "x";
 
 
    li.appendChild(name);
    li.appendChild(city);
+   li.appendChild(cross)
 
    cafeList.appendChild(li);
+
+   cross.addEventListener('click', (e) =>{
+     e.stopPropagation();
+     const liDelete = cross.parentElement.getAttribute('data-id');
+     db.collection('cafes').doc(liDelete).delete();
+
+   })
 };
 
 
@@ -30,7 +40,7 @@ db.collection('cafes').get().then((snapshot) => {
     })
  })
 
- //saving data
+ //saving data - adding new documents
  form.addEventListener('submit', (e) =>{
    e.preventDefault();
    db.collection('cafes').add({
@@ -39,3 +49,5 @@ db.collection('cafes').get().then((snapshot) => {
    });
    form.reset();
  })
+
+
