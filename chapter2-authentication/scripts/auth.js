@@ -1,3 +1,15 @@
+// real time listener to log in and logout changes
+
+auth.onAuthStateChanged(user => {
+    if (user) {
+        console.log(user.email, 'is logged in')
+    } else {
+        console.log('user is logged out');
+}
+});
+
+
+//sign up 
 const signupForm = document.querySelector('#signup-form');
 const modals = document.querySelectorAll('.modal')
 
@@ -10,17 +22,40 @@ signupForm.addEventListener('submit', (e) => {
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
         console.log(cred.user);
         console.log('user registered');
-   
-        //=================================//
 });
-
-
 
 //closing modal (need another way if not using materialize)===:
 const modal = document.querySelector('#modal-signup');
 M.Modal.getInstance(modal).close();
 signupForm.reset();
 });
+
+
+//logout
+const logout = document.querySelector('#logout')
+logout.addEventListener('click', (e) => {
+    e.preventDefault();
+    auth.signOut()
+})
+//login
+
+const login = document.querySelector('#login-form');
+
+login.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+const email = login['login-email'].value;
+const password = login['login-password'].value;
+
+auth.signInWithEmailAndPassword(email, password).then(cred =>{
+
+}); 
+//closing modal (need another way if not using materialize)===:
+const modal = document.querySelector('#modal-login');
+M.Modal.getInstance(modal).close();
+login.reset();
+});
+
 
 
 
@@ -38,3 +73,8 @@ signupForm.reset();
 // }).catch(function(error) {
 //   // An error happened.
 // });
+
+//===============
+//Try this...
+
+//cred.user.DisplayName = 
