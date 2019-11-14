@@ -1,3 +1,10 @@
+// gettign data from database
+
+db.collection('guides').get().then((snapshot) => {
+    renderGuides(snapshot.docs)
+});
+
+
 // real time listener to log in and logout changes
 
 auth.onAuthStateChanged(user => {
