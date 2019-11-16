@@ -1,7 +1,26 @@
 // rendering ui for guides 
 const guideList = document.querySelector('.guides');
+const loggedOutLinks = document.querySelectorAll('.logged-out');
+const loggedInLinks = document.querySelectorAll('.logged-in');
 
+//rendering links to nav bar depending on logged in status
+
+const renderLinks = (user) => {
+  // toggle UI elements
+  if (user) {
+    loggedInLinks.forEach(item => item.style.display = 'block');
+    loggedOutLinks.forEach(item => item.style.display = 'none');
+  } else {
+    //toggle UI elements
+    loggedInLinks.forEach(item => item.style.display = 'none');
+    loggedOutLinks.forEach(item => item.style.display = 'block');
+
+  }
+}
+
+// rendering guides to ui depending on logged in status
 const renderGuides = (data) => {
+  if(data.length){
   let html = '';
 data.forEach(doc => {
 //  console.log(guide.data());
@@ -15,6 +34,9 @@ const li = `
 html += li;
 })
 guideList.innerHTML = html;
+  } else {
+    guideList.innerHTML = `<h5 class="center-align">Login to see Guides</h5>`
+  }
 
 }
 

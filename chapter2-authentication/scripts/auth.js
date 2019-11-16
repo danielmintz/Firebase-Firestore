@@ -1,17 +1,20 @@
-// gettign data from database
 
-db.collection('guides').get().then((snapshot) => {
-    renderGuides(snapshot.docs)
-});
 
 
 // real time listener to log in and logout changes
 
 auth.onAuthStateChanged(user => {
     if (user) {
-        console.log(user.email, 'is logged in')
+        // getting data from database when logged in
+db.collection('guides').get().then((snapshot) => {
+    renderGuides(snapshot.docs)
+    renderLinks(user);
+});
     } else {
-        console.log('user is logged out');
+        renderLinks();
+       renderGuides([]);
+     
+       
 }
 });
 
