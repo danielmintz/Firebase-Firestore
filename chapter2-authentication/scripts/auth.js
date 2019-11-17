@@ -3,15 +3,15 @@
 auth.onAuthStateChanged(user => {
     if (user) {
         // getting data from database when logged in
-db.collection('guides').get().then((snapshot) => {
+db.collection('guides').onSnapshot((snapshot) => {
     renderGuides(snapshot.docs)
     renderLinks(user);
+}, err => {
+    console.log(err.message)
 });
     } else {
         renderLinks();
-       renderGuides([]);
-     
-       
+       renderGuides([]);      
 }
 });
 
@@ -45,15 +45,19 @@ signupForm.addEventListener('submit', (e) => {
     // console.log(email, password)
 
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
-        console.log(cred.user);
-        console.log('user registered');
-});
-
-//closing modal (need another way if not using materialize)===:
-const modal = document.querySelector('#modal-signup');
+        return db.collection('users').doc(cred.user.uid).set({
+            bio: signupForm['signup-bio'].value
+        });
+}).then(() =>{
+    //closing modal (need another way if not using materialize)===:
+    const modal = document.querySelector('#modal-signup');
 M.Modal.getInstance(modal).close();
 signupForm.reset();
 });
+});
+
+
+
 
 
 //logout
