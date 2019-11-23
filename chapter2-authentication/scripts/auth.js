@@ -1,11 +1,27 @@
-// real time listener to log in and logout changes
+// add admin cloud functions
+const adminForm =document.querySelector('.admin-actions');
 
+adminForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const adminEmail = document.querySelector('#admin-email').value;
+    const addAdminRole = functions.httpsCallable('addAdminRole')
+    addAdminRole({ email: adminEmail }).then(result => {
+        console.log(result);
+    });
+});
+// real time listener to log in and logout changes
 auth.onAuthStateChanged(user => {
     if (user) {
+        //identifies if loggen in user is an admin (has claims)
+        user.getIdTokenResult().then(idTokenResult => {
+            user.admin = idTokenResult.claims.admin;
+            renderLinks(user);
+        })
         // getting data from database when logged in
 db.collection('guides').onSnapshot((snapshot) => {
     renderGuides(snapshot.docs)
-    renderLinks(user);
+    //when no admin
+    // renderLinks(user);
 }, err => {
     console.log(err.message)
 });

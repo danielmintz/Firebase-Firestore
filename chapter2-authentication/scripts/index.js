@@ -3,17 +3,23 @@ const guideList = document.querySelector('.guides');
 const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
 const accountDetails = document.querySelector('.account-details');
-
+const adminItems = document.querySelectorAll('.admin');
 //rendering links to nav bar depending on logged in status
 
 const renderLinks = (user) => {
  
   if (user) {
+    //if admin show admin links
+if(user.admin) {
+  adminItems.forEach(item => item.style.display = 'block');
+}
   // show account details
   db.collection('users').doc(user.uid).get().then(doc =>{
     const html = `
     <div>logged in as ${user.email}</div>
     <div>${doc.data().bio}</div>
+    <div class="pink-text">${user.admin ? 'Admin' : ''}</div>
+
     `;
     accountDetails.innerHTML = html;
   })
@@ -22,6 +28,8 @@ const renderLinks = (user) => {
     loggedInLinks.forEach(item => item.style.display = 'block');
     loggedOutLinks.forEach(item => item.style.display = 'none');
   } else {
+    //hide admin links if not admin 
+    adminItems.forEach(item => item.style.display = 'none');
     // hide account details
     accountDetails.innerHTML = '';
     //toggle UI elements
