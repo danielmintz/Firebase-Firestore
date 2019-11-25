@@ -69,6 +69,9 @@ signupForm.addEventListener('submit', (e) => {
     const modal = document.querySelector('#modal-signup');
 M.Modal.getInstance(modal).close();
 signupForm.reset();
+signupForm.querySelector('.error').innerHTML = '';
+}).catch(err => {
+signupForm.querySelector('.error').innerHTML = err.message;
 });
 });
 
@@ -94,15 +97,16 @@ const password = login['login-password'].value;
 
 auth.signInWithEmailAndPassword(email, password).then(cred =>{
 
-}); 
+
 //closing modal (need another way if not using materialize)===:
 const modal = document.querySelector('#modal-login');
 M.Modal.getInstance(modal).close();
 login.reset();
-});
-
-
-
+login.querySelector('.error').innerHTML = '';
+}).catch(err => {
+    login.querySelector('.error').innerHTML = err.message;
+    })
+})
 
 //You can update a user's basic profile information—the user's 
 //display name and profile photo URL—with the updateProfile method. 
